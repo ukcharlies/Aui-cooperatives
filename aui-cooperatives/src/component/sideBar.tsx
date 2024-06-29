@@ -4,13 +4,21 @@ import { NavLink, useLocation } from "react-router-dom";
 import ProfilePicture from "./ProfilePicture";
 import SidebarButton from "./SidebarButton";
 import SidebarButtonDropdown from "./SidebarButtonDropdown";
+// Define a type for the button objects
+interface Button {
+  title: string;
+  icon: string; // Assuming icon is a string, adjust as necessary
+  activeIcon?: string; // Assuming activeIcon is optional and a string
+  link?: string; // Assuming link is optional and a string
+  dropdownItems?: DropdownItem[]; // Define DropdownItem type if dropdownItems is an array of certain objects
+}
 
-function Sidebar({ buttons, profilePicture, className }) {
+function Sidebar({ buttons, profilePicture, className }: { buttons: Button[]; profilePicture?: boolean; className?: string }) {
   const location = useLocation();
   const path = location.pathname.split("/")[1];
   const [activeButton, setActiveButton] = useState(path);
 
-  const handleButtonClick = (buttonTitle) => {
+  const handleButtonClick = (buttonTitle: string) => {
     setActiveButton(buttonTitle);
   };
 
