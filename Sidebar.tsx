@@ -1,10 +1,7 @@
 import React, { useState } from "react";
-import Logo from "./Logo";
 import ProfilePicture from "./ProfilePicture";
 import SidebarButton from "./SidebarButton";
 import SidebarButtonDropdown from "./SidebarButtonDropdown";
-import UpgradeButton from "./UpgradeButton";
-import Line from "./Line";
 import { NavLink, Router, useLocation } from "react-router-dom";
 
 function Sidebar() {
@@ -15,69 +12,80 @@ function Sidebar() {
   return (
     <aside className="h-screen w-64 flex fixed top-0 left-0 bg-[#010101] border-r shadow-sm">
       <nav className="h-full flex flex-col bg-[#010101] border-r shadow-sm">
-        <div className=" p-4 pb-2 flex justify-between items-center">
+        {/* <div className=" p-4 pb-2 flex justify-between items-center">
           <Logo />
-        </div>
+        </div> */} styling for the logo
         <ul className=" flex-1 px-3 mt-3 ">
-          <NavLink to="/">
+          <NavLink to="/dashboard">
             <SidebarButton
-              title="Chat"
-              icon="src/assets/ChatIcon.svg"
-              activeIcon="src/assets/ChatIcon-active.svg"
-              isActive={activeButton === "Chat"}
-              onClick={() => setActiveButton("Chat")}
+              title="Dashboard"
+              icon="src/assets/DashboardIcon.svg"
+              activeIcon="src/assets/DashboardIcon-active.svg"
+              isActive={activeButton === "Dashboard"}
+              onClick={() => setActiveButton("Dashboard")}
             />
           </NavLink>
 
-          <NavLink to="/projects">
+          <NavLink to="/savings">
             <SidebarButton
-              title="My Projects"
-              icon="src/assets/ProjectsIcon.svg"
-              activeIcon="src/assets/ProjectsIcon-active.svg"
-              isActive={activeButton === "My Projects"}
-              onClick={() => setActiveButton("My Projects")}
-            />
-          </NavLink>
-          <NavLink to="/infobase">
-            <SidebarButton
-              title="Info Base"
-              icon="src/assets/InfobaseIcon.svg"
-              activeIcon="src/assets/InfobaseIcon-active.svg"
-              isActive={activeButton === "Info Base"}
-              onClick={() => setActiveButton("Info Base")}
+              title="Savings"
+              icon="src/assets/SavingsIcon.svg"
+              activeIcon="src/assets/SavingsIcon-active.svg"
+              isActive={activeButton === "Savings"}
+              onClick={() => setActiveButton("Savings")}
             />
           </NavLink>
 
-          <NavLink to="/brandvoice">
+          <NavLink to="/management">
             <SidebarButton
-              title="Brand Voice"
-              icon="src/assets/BrandvoiceIcon.svg"
-              activeIcon="src/assets/BrandvoiceIcon-active.svg"
-              isActive={activeButton === "Brand Voice"}
-              onClick={() => setActiveButton("Brand Voice")}
-            />
-          </NavLink>
-          <NavLink to="/templates">
-            <SidebarButton
-              title="Templates"
-              icon="src/assets/TemplatesIcon.svg"
-              activeIcon="src/assets/TemplatesIcon-active.svg"
-              isActive={activeButton === "Templates"}
-              onClick={() => setActiveButton("Templates")}
+              title="Management"
+              icon="src/assets/ManagementIcon.svg"
+              activeIcon="src/assets/ManagementIcon-active.svg"
+              isActive={activeButton === "Management"}
+              onClick={() => setActiveButton("Management")}
             />
           </NavLink>
 
-          <NavLink to="/tools">
+          <NavLink to="/individual-loan">
             <SidebarButton
-              title="Tools"
-              icon="src/assets/ToolsIcon.svg"
-              activeIcon="src/assets/ToolsIcon-active.svg"
-              isActive={activeButton === "Tools"}
-              onClick={() => setActiveButton("Tools")}
+              title="Individual Loan"
+              icon="src/assets/IndividualLoanIcon.svg"
+              activeIcon="src/assets/IndividualLoanIcon-active.svg"
+              isActive={activeButton === "Individual Loan"}
+              onClick={() => setActiveButton("Individual Loan")}
             />
           </NavLink>
 
-          <Line />
+          <NavLink to="/announcement">
+            <SidebarButton
+              title="Announcement"
+              icon="src/assets/AnnouncementIcon.svg"
+              activeIcon="src/assets/AnnouncementIcon-active.svg"
+              isActive={activeButton === "Announcement"}
+              onClick={() => setActiveButton("Announcement")}
+            />
+          </NavLink>
+
+          <NavLink to="/security">
+            <SidebarButton
+              title="Security"
+              icon="src/assets/SecurityIcon.svg"
+              activeIcon="src/assets/SecurityIcon-active.svg"
+              isActive={activeButton === "Security"}
+              onClick={() => setActiveButton("Security")}
+            />
+          </NavLink>
+
+          <NavLink to="/settings">
+            <SidebarButton
+              title="Settings"
+              icon="src/assets/SettingsIcon.svg"
+              activeIcon="src/assets/SettingsIcon-active.svg"
+              isActive={activeButton === "Settings"}
+              onClick={() => setActiveButton("Settings")}
+            />
+          </NavLink>
+
           <SidebarButtonDropdown
             title="Workflows"
             icon="src/assets/WorkflowsIcon.svg"
@@ -101,7 +109,6 @@ function Sidebar() {
 
         <div className="flex flex-col items-center mb-4 ">
           <ProfilePicture />
-          <UpgradeButton />
         </div>
       </nav>
     </aside>
@@ -109,3 +116,73 @@ function Sidebar() {
 }
 
 export default Sidebar;
+
+{/* <NavLink to="/dashboard">
+  <SidebarButton
+    title="Dashboard"
+    icon="src/assets/DashboardIcon.svg"
+    activeIcon="src/assets/DashboardIcon-active.svg"
+    isActive={activeButton === "Dashboard"}
+    onClick={() => setActiveButton("Dashboard")}
+  />
+</NavLink>
+
+<NavLink to="/savings">
+  <SidebarButton
+    title="Savings"
+    icon="src/assets/SavingsIcon.svg"
+    activeIcon="src/assets/SavingsIcon-active.svg"
+    isActive={activeButton === "Savings"}
+    onClick={() => setActiveButton("Savings")}
+  />
+</NavLink>
+
+<NavLink to="/management">
+  <SidebarButton
+    title="Management"
+    icon="src/assets/ManagementIcon.svg"
+    activeIcon="src/assets/ManagementIcon-active.svg"
+    isActive={activeButton === "Management"}
+    onClick={() => setActiveButton("Management")}
+  />
+</NavLink>
+
+<NavLink to="/individual-loan">
+  <SidebarButton
+    title="Individual Loan"
+    icon="src/assets/IndividualLoanIcon.svg"
+    activeIcon="src/assets/IndividualLoanIcon-active.svg"
+    isActive={activeButton === "Individual Loan"}
+    onClick={() => setActiveButton("Individual Loan")}
+  />
+</NavLink>
+
+<NavLink to="/announcement">
+  <SidebarButton
+    title="Announcement"
+    icon="src/assets/AnnouncementIcon.svg"
+    activeIcon="src/assets/AnnouncementIcon-active.svg"
+    isActive={activeButton === "Announcement"}
+    onClick={() => setActiveButton("Announcement")}
+  />
+</NavLink>
+
+<NavLink to="/security">
+  <SidebarButton
+    title="Security"
+    icon="src/assets/SecurityIcon.svg"
+    activeIcon="src/assets/SecurityIcon-active.svg"
+    isActive={activeButton === "Security"}
+    onClick={() => setActiveButton("Security")}
+  />
+</NavLink>
+
+<NavLink to="/settings">
+  <SidebarButton
+    title="Settings"
+    icon="src/assets/SettingsIcon.svg"
+    activeIcon="src/assets/SettingsIcon-active.svg"
+    isActive={activeButton === "Settings"}
+    onClick={() => setActiveButton("Settings")}
+  />
+</NavLink> */}
