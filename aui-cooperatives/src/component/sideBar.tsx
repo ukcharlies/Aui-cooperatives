@@ -1,101 +1,76 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState } from "react";
+import { NavLink, useLocation } from "react-router-dom";
+import SidebarButton from "./SidebarButton";
+import UserProfile from "./UserProfile";
+import SidebarTop from "./SidebarTop";
 
-interface SidebarProps {
+export interface SidebarProps {
   userName: string;
   userProfilePicture: string;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ userName, userProfilePicture }) => {
+  const location = useLocation();
+  const path = location.pathname.split("/")[1];
+  const [activeButton, setActiveButton] = useState(path);
   return (
     <aside className="h-screen w-64 flex fixed top-0 left-0 border-r shadow-sm">
       <nav className="h-full flex flex-col justify-between shadow-sm">
-        <div className="flex items-center p-2.5">
-          <img
-            src={userProfilePicture}
-            alt="User"
-            className="w-10 h-10 rounded-full"
+        <SidebarTop />
+        <div className=" flex flex-col justify-between">
+          <SidebarButton
+            to={"/dashboard"}
+            title={"Dashboard"}
+            icon={""}
+            activeIcon={""}
+            isActive={activeButton === "Dashboard"}
+            onClick={() => setActiveButton("Dashboard")}
           />
-          <span>{userName}</span>
+          <SidebarButton
+            to={"/savings"}
+            title={"Savings"}
+            icon={""}
+            activeIcon={""}
+            isActive={activeButton === "Savings"}
+            onClick={() => setActiveButton("Savings")}
+          />
+          <SidebarButton
+            to={"/management"}
+            title={"Management"}
+            icon={""}
+            activeIcon={""}
+            isActive={activeButton === "Management"}
+            onClick={() => setActiveButton("Management")}
+          />
+          <SidebarButton
+            to={"/loan"}
+            title={"Individual Loan"}
+            icon={""}
+            activeIcon={""}
+            isActive={activeButton === "Loan"}
+            onClick={() => setActiveButton("Loan")}
+          />
+          <SidebarButton
+            to={"/announcement"}
+            title={"Announcement"}
+            icon={""}
+            activeIcon={""}
+            isActive={activeButton === "Announcement"}
+            onClick={() => setActiveButton("Announcement")}
+          />
+          <SidebarButton
+            to={"/settings"}
+            title={"Settings"}
+            icon={""}
+            activeIcon={""}
+            isActive={activeButton === "Settings"}
+            onClick={() => setActiveButton("Settings")}
+          />
         </div>
-        <ul className="list-none p-0">
-          <li>
-            <NavLink
-              to="/dashboard"
-              className={({ isActive }) =>
-                isActive
-                  ? "block py-2 px-4 hover:bg-gray-700 border-b-2 border-blue-500 text-black"
-                  : "block py-2 px-4 hover:bg-gray-700 text-black"
-              }
-            >
-              Dashboard
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/savings"
-              className={({ isActive }) =>
-                isActive
-                  ? "block py-2 px-4 hover:bg-gray-700 border-b-2 border-blue-500 text-black"
-                  : "block py-2 px-4 hover:bg-gray-700 text-black"
-              }
-            >
-              Savings
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/management"
-              className={({ isActive }) =>
-                isActive
-                  ? "block py-2 px-4 hover:bg-gray-700 border-b-2 border-blue-500 text-black"
-                  : "block py-2 px-4 hover:bg-gray-700 text-black"
-              }
-            >
-              Management
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/loan"
-              className={({ isActive }) =>
-                isActive
-                  ? "block py-2 px-4 hover:bg-gray-700 border-b-2 border-blue-500 text-black"
-                  : "block py-2 px-4 hover:bg-gray-700 text-black"
-              }
-            >
-              Individual Loan
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/announcement"
-              className={({ isActive }) =>
-                isActive
-                  ? "block py-2 px-4 hover:bg-gray-700 border-b-2 border-blue-500 text-black"
-                  : "block py-2 px-4 hover:bg-gray-700 text-black"
-              }
-            >
-              Announcement
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/settings"
-              className={({ isActive }) =>
-                isActive
-                  ? "block py-2 px-4 hover:bg-gray-700 border-b-2 border-blue-500 text-black"
-                  : "block py-2 px-4 hover:bg-gray-700 text-black"
-              }
-            >
-              Settings
-            </NavLink>
-          </li>
-        </ul>
-        <div className="flex items-center p-2.5">
-          <img src="path/to/logo.png" alt="Logo" className="w-7 h-auto" />
-          <span>Welcome to Our Platform!</span>
-        </div>
+        <UserProfile
+          userName={userName}
+          userProfilePicture={userProfilePicture}
+        />
       </nav>
     </aside>
   );
