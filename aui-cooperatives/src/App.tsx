@@ -7,6 +7,7 @@ import Savings from "./pages/Savings";
 import Announcement from "./pages/Announcement";
 import Security from "./pages/Security";
 import IndividualLoan from "./pages/ILoan";
+import AnnouncementsBar from "./component/AnnouncementsBar";
 
 function App() {
   const userName = "Ukachi Charles";
@@ -24,6 +25,7 @@ function App() {
         <Route path="/security" element={<Security />} />
         <Route path="/settings" element={<Settings />} />
       </Routes>
+      <AnnouncementsBar />
     </div>
   );
 }
