@@ -14,7 +14,7 @@ function App() {
   const userProfilePicture = "./src/images/dummy profile.jpeg";
 
   return (
-    <div className=" flex h-screen flex-row min-w-screen">
+    <div className=" flex flex-row justify-between h-screen min-w-screen">
       <Sidebar userName={userName} userProfilePicture={userProfilePicture} />
       <Routes>
         <Route path="/dashboard" element={<Dashboard />} />
