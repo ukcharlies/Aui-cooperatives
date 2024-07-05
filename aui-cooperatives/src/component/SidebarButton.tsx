@@ -21,8 +21,8 @@ function SidebarButton({
   return (
     <NavLink
       to={to}
-      className={` text-xl py-2 px-4  hover:bg-[#9754C5] rounded m-4 w-[90%] text-left flex items-center focus:outline-none transition-all ${
-        isActive ? "bg-[#9754C5] text-white " : ""
+      className={` text-xl py-2 px-4  hover:bg-[#CCC6C0] rounded m-4 w-[90%] text-left flex items-center focus:outline-none transition-all ${
+        isActive ? "bg-[#785D08] text-white " : ""
       }`}
       onClick={onClick}
     >
@@ -30,6 +30,9 @@ function SidebarButton({
         src={isActive ? activeIcon : icon}
         alt={title}
         className="h-6 w-6 mr-2"
+        style={{
+          filter: isActive ? 'none' : 'grayscale(100%) brightness(0)',
+        }}
       />
       {title}
     </NavLink>

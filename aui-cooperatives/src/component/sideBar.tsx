@@ -21,48 +21,48 @@ const Sidebar: React.FC<SidebarProps> = ({ userName, userProfilePicture }) => {
           <SidebarButton
             to={"/dashboard"}
             title={"Dashboard"}
-            icon={""}
-            activeIcon={""}
+            icon={"./src/images/Dashboard.png"}
+            activeIcon={"./src/images/Dashboard.png"}
             isActive={activeButton === "Dashboard"}
             onClick={() => setActiveButton("Dashboard")}
           />
           <SidebarButton
             to={"/savings"}
             title={"Savings"}
-            icon={""}
-            activeIcon={""}
+            icon={"./src/images/savings.png"}
+            activeIcon={"./src/images/savings.png"}
             isActive={activeButton === "Savings"}
             onClick={() => setActiveButton("Savings")}
           />
           <SidebarButton
             to={"/management"}
             title={"Management"}
-            icon={""}
-            activeIcon={""}
+            icon={"./src/images/management.png"}
+            activeIcon={"./src/images/management.png"}
             isActive={activeButton === "Management"}
             onClick={() => setActiveButton("Management")}
           />
           <SidebarButton
             to={"/loan"}
             title={"Individual Loan"}
-            icon={""}
-            activeIcon={""}
+            icon={"./src/images/loan.png"}
+            activeIcon={"./src/images/loan.png"}
             isActive={activeButton === "Loan"}
             onClick={() => setActiveButton("Loan")}
           />
           <SidebarButton
             to={"/announcement"}
             title={"Announcement"}
-            icon={""}
-            activeIcon={""}
+            icon={"./src/images/announcement.png"}
+            activeIcon={"./src/images/announcement.png"}
             isActive={activeButton === "Announcement"}
             onClick={() => setActiveButton("Announcement")}
           />
           <SidebarButton
             to={"/settings"}
             title={"Settings"}
-            icon={""}
-            activeIcon={""}
+            icon={"./src/images/setting.png"}
+            activeIcon={"./src/images/setting.png"}
             isActive={activeButton === "Settings"}
             onClick={() => setActiveButton("Settings")}
           />
