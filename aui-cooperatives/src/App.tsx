@@ -8,6 +8,7 @@ import Announcement from "./pages/Announcement";
 import Security from "./pages/Security";
 import IndividualLoan from "./pages/ILoan";
 import AnnouncementsBar from "./component/AnnouncementsBar";
+import Tabs from "./component/Tabs";
 
 function App() {
   const userName = "Ukachi Charles";
