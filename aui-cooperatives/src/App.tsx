@@ -12,7 +12,7 @@ import Tabs from "./component/Tabs";
 import { useState } from "react";
 
 function App() {
-  const user = null;
+  const user = localStorage.getItem("accessToken");
   const userName = "Ukachi Charles";
   const userProfilePicture = "./src/images/dummy profile.jpeg";
 
@@ -43,14 +43,5 @@ function App() {
     </>
   );
 }
-
-// function App() {
-
-//   return (
-//     <div className= "App">
-//       <Tabs />
-//     </div>
-//   );
-// }
 
 export default App;

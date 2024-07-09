@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
-export const API_BASE_URL = "http://127.0.0.1:8000";
+export const API_BASE_URL = "http://127.0.0.1:8000/api";
 
 export interface regserializier {
   first_name: string;
@@ -9,6 +9,11 @@ export interface regserializier {
   department: string;
   employment_number: string;
   address: string;
+  password: string;
+}
+
+export interface logserializier {
+  email: string;
   password: string;
 }
 
@@ -47,11 +52,11 @@ export async function register({
   }
 }
 
-export async function login({email, password}:regserializier) {
+export async function login({ email, password }: logserializier) {
   try {
     const response = await axios.post(`${API_BASE_URL}/login/`, {
-      email,
-      password,
+      email: email,
+      password: password,
     });
 
     if (response.status === 200) {
@@ -64,5 +69,54 @@ export async function login({email, password}:regserializier) {
     }
   } catch (error) {
     throw error;
+  }
+}
+
+export interface User {
+  username: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  department: string | null;
+  address: string;
+  phone: string;
+  employment_number: string;
+  is_verified: boolean;
+}
+
+// Define the getUser function
+export async function getUser(): Promise<User | string> {
+  try {
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      window.location.href = "/";
+      throw new Error("No access token found, Sign in");
+    }
+
+    const response = await axios.get(`${API_BASE_URL}/user/`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.data.message === "awaiting verification") {
+      return "awaiting verification";
+    }
+
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      // Handle known error responses
+      if (error.response.status === 401) {
+        throw new Error("Unauthorized access");
+      } else if (error.response.status === 403) {
+        throw new Error("Forbidden access");
+      } else if (error.response.status === 404) {
+        throw new Error("User not found");
+      }
+    }
+
+    // Handle unknown errors
+    throw new Error("An error occurred while fetching user data");
   }
 }
