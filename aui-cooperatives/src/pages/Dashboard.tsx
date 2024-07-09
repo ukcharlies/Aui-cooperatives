@@ -28,7 +28,7 @@ const DashboardPage = () => {
   }, []);
 
   return (
-    <div className="max-w-4xl mx-auto p-3 ml-64 w-full bg-[#FCFCFC]">
+    <div className=" ml-64 w-full p-4">
       {loading && <p className="font-bold text-center">Loading..</p>}
       {error && (
         <div className=" w-full min-h-72 flex items-center justify-center">
@@ -38,7 +38,7 @@ const DashboardPage = () => {
       )}
       {!error && !loading && (
         <>
-          <div className="bg-white rounded-lg shadow-lg mb-4 p-6">
+          <div className="bg-white rounded-lg shadow-lg mb-4 p-6  w-full">
             <div className="flex items-center justify-between mb-4">
               {/* User details */}
               <div className="flex items-center">
