@@ -37,14 +37,17 @@ const Sidebar: React.FC = () => {
             isActive={activeButton === "Savings"}
             onClick={() => setActiveButton("Savings")}
           />
-          <SidebarButton
-            to={"/management"}
-            title={"Management"}
-            icon={"./src/images/management.png"}
-            activeIcon={"./src/images/management.png"}
-            isActive={activeButton === "Management"}
-            onClick={() => setActiveButton("Management")}
-          />
+          {user && user.is_superuser && (
+            <SidebarButton
+              to={"/management"}
+              title={"Management"}
+              icon={"./src/images/management.png"}
+              activeIcon={"./src/images/management.png"}
+              isActive={activeButton === "Management"}
+              onClick={() => setActiveButton("Management")}
+            />
+          )}
+
           <SidebarButton
             to={"/loan"}
             title={"Individual Loan"}
@@ -81,6 +84,7 @@ const Sidebar: React.FC = () => {
             phone={user.phone}
             employment_number={user.employment_number}
             is_verified={user.is_verified}
+            is_superuser={user.is_superuser}
           />
         )}
       </nav>

@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import { UnverifiedUser } from "../pages/Management";
 export const API_BASE_URL = "http://127.0.0.1:8000/api";
 
 export interface regserializier {
@@ -82,6 +83,7 @@ export interface User {
   phone: string;
   employment_number: string;
   is_verified: boolean;
+  is_superuser:boolean
 }
 
 // Define the getUser function
@@ -118,6 +120,27 @@ export async function getUser(): Promise<User | string> {
 
     // Handle unknown errors
     throw new Error("An error occurred while fetching user data");
+  }
+}
+
+// Define the get unverified function
+export async function getUnVUser(): Promise<UnverifiedUser[] | string> {
+  try {
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      window.location.href = "/";
+      throw new Error("No access token found, Sign in");
+    }
+
+    const response = await axios.get(`${API_BASE_URL}/unverified/users/`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    throw new Error("An error occurred while fetching data");
   }
 }
 
