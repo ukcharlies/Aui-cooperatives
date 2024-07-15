@@ -1,35 +1,37 @@
 import React, { useEffect, useState } from "react";
-import { getUnVUser } from "../utils/api";
+import { getUnVUser, verifyUser, UnverifiedUser } from "../utils/api";
 
-export interface UnverifiedUser {
-  id: number;
-  firstName: string;
-  lastName: string;
-  department: string;
-  employmentNumber: string;
-  address: string;
-  phoneNumber: string;
-  email: string;
-}
-const ManagementPage = () => {
-  const [users, setUsers] = useState<UnverifiedUser[] | null>();
-
+const ManagementPage: React.FC = () => {
+  const [users, setUsers] = useState<UnverifiedUser[] | null>(null);
   const [expandedUserId, setExpandedUserId] = useState<number | null>(null);
+  const [verifyingUserId, setVerifyingUserId] = useState<number | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const toggleExpandUser = (userId: number) => {
     setExpandedUserId(expandedUserId === userId ? null : userId);
   };
 
-  const verifyUser = (userId: number) => {
-    // Logic to verify user goes here
-    console.log(`Verifying user with ID: ${userId}`);
+  const handleVerifyUser = async (userId: number) => {
+    setVerifyingUserId(userId);
+    try {
+      const response = await verifyUser(userId);
+      console.log(response);
+
+      // Remove the verified user from the list
+      setUsers((prevUsers) =>
+        prevUsers ? prevUsers.filter((user) => user.id !== userId) : null
+      );
+      setError(null);
+    } catch (err) {
+      setError((err as Error).message);
+    } finally {
+      setVerifyingUserId(null);
+    }
   };
 
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-
   useEffect(() => {
-    const fetchUser = async () => {
+    const fetchUsers = async () => {
       try {
         const uUsers = await getUnVUser();
         setUsers(uUsers as UnverifiedUser[]);
@@ -40,18 +42,16 @@ const ManagementPage = () => {
       }
     };
 
-    fetchUser();
+    fetchUsers();
   }, []);
 
   return (
-    <div className="ml-64 w-full bg-white flex items-center justify-center p-4">
+    <div className="ml-64 w-full bg-white flex flex-col items-center justify-center p-4">
       {error && (
-        <h1 className=" text-2xl text-red-500 text-center font-bold">
-          {error}
-        </h1>
+        <h1 className="text-2xl text-red-500 text-center font-bold">{error}</h1>
       )}
       {loading && (
-        <h1 className=" text-2xl text-blue text-center font-bold">
+        <h1 className="text-2xl text-blue text-center font-bold">
           Loading unverified users.
         </h1>
       )}
@@ -82,10 +82,11 @@ const ManagementPage = () => {
                       className="px-4 py-2 bg-[#CCC6C0] text-black font-semibold rounded-full hover:bg-gray-500"
                       onClick={(e) => {
                         e.stopPropagation();
-                        verifyUser(user.id);
+                        handleVerifyUser(user.id);
                       }}
+                      disabled={verifyingUserId === user.id}
                     >
-                      Verify
+                      {verifyingUserId === user.id ? "Verifying..." : "Verify"}
                     </button>
                   </div>
                 ))}
@@ -131,7 +132,7 @@ const ManagementPage = () => {
           </div>
         </>
       ) : (
-        <h1 className=" text-2xl text-blue text-center font-bold">
+        <h1 className="text-2xl text-blue text-center font-bold">
           No new users
         </h1>
       )}

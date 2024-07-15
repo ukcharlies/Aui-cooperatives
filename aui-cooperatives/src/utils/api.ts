@@ -1,5 +1,4 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
-import { UnverifiedUser } from "../pages/Management";
 export const API_BASE_URL = "http://127.0.0.1:8000/api";
 
 export interface regserializier {
@@ -123,6 +122,18 @@ export async function getUser(): Promise<User | string> {
   }
 }
 
+// Define the UnverifiedUser interface
+export interface UnverifiedUser {
+  id: number;
+  firstName: string;
+  lastName: string;
+  department: string;
+  employmentNumber: string;
+  address: string;
+  phoneNumber: string;
+  email: string;
+}
+
 // Define the get unverified function
 export async function getUnVUser(): Promise<UnverifiedUser[] | string> {
   try {
@@ -141,6 +152,43 @@ export async function getUnVUser(): Promise<UnverifiedUser[] | string> {
     return response.data;
   } catch (error) {
     throw new Error("An error occurred while fetching data");
+  }
+}
+
+// Define the response type for the verification function
+export interface VerifyResponse {
+  message: string;
+}
+
+// Define the function to verify a user
+export async function verifyUser(userId: number): Promise<VerifyResponse | string> {
+  try {
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+      throw new Error('No access token found');
+    }
+
+    const response = await axios.get(
+      `${API_BASE_URL}/verify-user/${userId}/`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      if (error.response.status === 404) {
+        throw new Error('User or UserProfile does not exist.');
+      } else if (error.response.status === 403) {
+        throw new Error('Forbidden access.');
+      } else if (error.response.status === 401) {
+        throw new Error('Unauthorized access.');
+      }
+    }
+    throw new Error('An error occurred while verifying the user');
   }
 }
 

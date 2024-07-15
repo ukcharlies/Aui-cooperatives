@@ -45,7 +45,7 @@ const DashboardPage = () => {
           <p className="font-bold text-center">{error}</p>
         </div>
       )}
-      {!error && !loading && (
+      {!error && !loading && user && (
         <>
           <div className="bg-white rounded-lg shadow-lg mb-4 p-6  w-full">
             <div className="flex items-center justify-between mb-4">
@@ -57,9 +57,9 @@ const DashboardPage = () => {
                   className="w-16 h-16 rounded-full mr-4"
                 />
                 <div>
-                  <h2 className="text-xl font-bold">John Doe</h2>
+                  <h2 className="text-xl font-bold">{`${user.first_name} ${user.last_name}`}</h2>
                   <span className="text-sm text-white border border-[#3E3E3E] bg-[#3E3E3E] rounded-full px-2 py-1 mt-1 inline-block">
-                    Old Member
+                    Member
                   </span>
                 </div>
               </div>
@@ -70,9 +70,15 @@ const DashboardPage = () => {
                 <span className="block text-lg font-bold">
                   Membership Role:
                 </span>
-                <span className="block text-xs text-gray-600">
-                  Active Member
-                </span>
+                {user.is_superuser ? (
+                  <span className="block text-sm text-blue font-semibold">
+                    Administrator
+                  </span>
+                ) : (
+                  <span className="block text-sm text-black">
+                    Active Member
+                  </span>
+                )}
               </div>
               {/* Total savings */}
               <div className="text-right">
