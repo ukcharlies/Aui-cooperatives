@@ -70,17 +70,19 @@ const Sidebar: React.FC = () => {
             onClick={() => setActiveButton("Settings")}
           />
         </div>
-        <UserProfile
-          username={user.username}
-          first_name={user.first_name}
-          last_name={user.last_name}
-          email={user.email}
-          department={user.department}
-          address={user.address}
-          phone={user.phone}
-          employment_number={user.employment_number}
-          is_verified={user.is_verified}
-        />
+        {user && (
+          <UserProfile
+            username={user.username}
+            first_name={user.first_name}
+            last_name={user.last_name}
+            email={user.email}
+            department={user.department}
+            address={user.address}
+            phone={user.phone}
+            employment_number={user.employment_number}
+            is_verified={user.is_verified}
+          />
+        )}
       </nav>
     </aside>
   );

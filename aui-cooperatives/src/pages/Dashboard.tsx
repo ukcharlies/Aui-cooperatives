@@ -7,26 +7,33 @@ import Newser from "../component/Newser";
 const DashboardPage = () => {
   const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const userData = await getUser();
-        if (userData === "awaiting verification") {
-          setError("Your account is awaiting verification.");
-        } else {
-          setUser(userData as User);
-          localStorage.setItem("user", JSON.stringify(userData));
+    const u = localStorage.getItem("user");
+    if (u) {
+      setUser(JSON.parse(u) as User);
+    } else {
+      setLoading(true);
+      const fetchUser = async () => {
+        try {
+          const userData = await getUser();
+          if (userData === "awaiting verification") {
+            setError("Your account is awaiting verification.");
+          } else {
+            setUser(userData as User);
+            localStorage.setItem("user", JSON.stringify(userData));
+            window.location.href = "/dashboard";
+          }
+        } catch (err) {
+          setError((err as Error).message);
+        } finally {
+          setLoading(false);
         }
-      } catch (err) {
-        setError((err as Error).message);
-      } finally {
-        setLoading(false);
-      }
-    };
+      };
 
-    fetchUser();
+      fetchUser();
+    }
   }, []);
 
   return (
