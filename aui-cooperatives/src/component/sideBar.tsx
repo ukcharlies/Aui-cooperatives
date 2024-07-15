@@ -3,17 +3,19 @@ import { useLocation } from "react-router-dom";
 import SidebarButton from "./SidebarButton";
 import UserProfile from "./UserProfile";
 import SidebarTop from "./SidebarTop";
+import { User } from "../utils/api";
 
 export interface SidebarProps {
   userName: string;
   userProfilePicture: string;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ userName, userProfilePicture }) => {
+const Sidebar: React.FC = () => {
   const location = useLocation();
   const path = location.pathname.split("/")[1];
   const [activeButton, setActiveButton] = useState(path);
 
+  const user: User = JSON.parse(localStorage.getItem("user") as string) as User;
   return (
     <aside className="h-screen w-64 flex fixed top-0 left-0 shadow-sm">
       <nav className="h-full flex flex-col justify-between shadow-sm">
@@ -69,8 +71,15 @@ const Sidebar: React.FC<SidebarProps> = ({ userName, userProfilePicture }) => {
           />
         </div>
         <UserProfile
-          userName={userName}
-          userProfilePicture={userProfilePicture}
+          username={user.username}
+          first_name={user.first_name}
+          last_name={user.last_name}
+          email={user.email}
+          department={user.department}
+          address={user.address}
+          phone={user.phone}
+          employment_number={user.employment_number}
+          is_verified={user.is_verified}
         />
       </nav>
     </aside>

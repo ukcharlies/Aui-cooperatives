@@ -4,10 +4,15 @@ interface NewsProps {
   thumbnail: string;
   title: string;
   desc: string;
+  href: string;
 }
-export default function News({ thumbnail, title, desc }: NewsProps) {
+export default function News({ thumbnail, title, desc, href }: NewsProps) {
   return (
-    <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+    <a
+      target="_blank"
+      href={href}
+      className="bg-white rounded-lg shadow-lg overflow-hidden"
+    >
       <img
         src={thumbnail}
         alt={`${title} icon`}
@@ -17,6 +22,6 @@ export default function News({ thumbnail, title, desc }: NewsProps) {
         <h3 className="text-lg font-semibold mb-2">{title}</h3>
         <p className="text-sm text-gray-600">{desc}</p>
       </div>
-    </div>
+    </a>
   );
 }

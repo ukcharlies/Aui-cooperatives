@@ -120,3 +120,19 @@ export async function getUser(): Promise<User | string> {
     throw new Error("An error occurred while fetching user data");
   }
 }
+
+export interface Newss {
+  title: string;
+  thumbnail: string;
+  href: string;
+  desc: string;
+}
+
+export async function getNews(): Promise<Newss[] | string> {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/news/`);
+    return response.data;
+  } catch (error) {
+    throw new Error("An error occurred while fetching user data");
+  }
+}

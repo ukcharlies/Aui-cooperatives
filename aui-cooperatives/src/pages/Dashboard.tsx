@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import News from "../component/News";
 import { getUser, User } from "../utils/api";
+import Newser from "../component/Newser";
 
 const DashboardPage = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -16,6 +17,7 @@ const DashboardPage = () => {
           setError("Your account is awaiting verification.");
         } else {
           setUser(userData as User);
+          localStorage.setItem("user", JSON.stringify(userData));
         }
       } catch (err) {
         setError((err as Error).message);
@@ -75,24 +77,7 @@ const DashboardPage = () => {
         </>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {/* Group of smaller square cards */}
-        <News
-          thumbnail={"./src/images/test-image2.jpeg"}
-          title={"News Title"}
-          desc={
-            "Brief content for the news. Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-          }
-        />
-
-        <News
-          thumbnail={"./src/images/test-image1.jpeg"}
-          title={"News Title"}
-          desc={
-            "Brief content for the news. Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-          }
-        />
-      </div>
+      <Newser />
     </div>
   );
 };

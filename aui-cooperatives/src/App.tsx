@@ -20,11 +20,9 @@ function App() {
     <>
       {user ? (
         <div className=" flex flex-row justify-between h-screen min-w-screen">
-          <Sidebar
-            userName={userName}
-            userProfilePicture={userProfilePicture}
-          />
+          <Sidebar />
           <Routes>
+            <Route path="/" element={<Dashboard />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/savings" element={<Savings />} />
             <Route path="/management" element={<Management />} />
@@ -37,7 +35,7 @@ function App() {
         </div>
       ) : (
         <Routes>
-          <Route path="" element={<Tabs />} />
+          <Route path="/" element={<Tabs />} />
         </Routes>
       )}
     </>
